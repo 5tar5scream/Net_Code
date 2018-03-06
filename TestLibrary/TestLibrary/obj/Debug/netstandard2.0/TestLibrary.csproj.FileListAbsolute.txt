@@ -1,0 +1,10 @@
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\bin\Debug\netstandard2.0\TestLibrary.deps.json
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\bin\Debug\netstandard2.0\TestLibrary.dll
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\bin\Debug\netstandard2.0\TestLibrary.pdb
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\bin\Debug\netstandard2.0\STAF.dll
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\bin\Debug\netstandard2.0\STAF.pdb
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\obj\Debug\netstandard2.0\TestLibrary.csproj.CoreCompileInputs.cache
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\obj\Debug\netstandard2.0\TestLibrary.AssemblyInfoInputs.cache
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\obj\Debug\netstandard2.0\TestLibrary.AssemblyInfo.cs
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\obj\Debug\netstandard2.0\TestLibrary.dll
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\obj\Debug\netstandard2.0\TestLibrary.pdb

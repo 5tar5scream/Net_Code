@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using STAF.CustomAttributes;
+using System.Reflection;
+using STAF.Automation;
+
 
 namespace Test_Application
 {
@@ -11,7 +13,14 @@ namespace Test_Application
     {
         static void Main(string[] args)
         {
-            
+            //DummyTester t = new DummyTester();
+            //t.ExecuteTests();
+            TestLibrary.Mock_Tests.MockTest1 a = new TestLibrary.Mock_Tests.MockTest1();
+            Automation.AddLibrary(a);
+            Automation.StartAutomation();
+
         }
+
     }
+
 }
