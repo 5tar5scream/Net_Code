@@ -24,6 +24,7 @@ namespace STAF.Objects
         #endregion
 
         #region properties
+        //you need visual studio 2017 for the following properties
         public string TestDescription { get => testDescription; set => testDescription = value; }
         public bool TestIgnore { get => testIgnore; set => testIgnore = value; }
         public string AttributeName { get => attributeName; set => attributeName = value; }

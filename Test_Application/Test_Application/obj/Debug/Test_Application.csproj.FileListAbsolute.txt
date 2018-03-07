@@ -8,3 +8,4 @@ C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Ap
 C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\obj\Debug\Test_Application.pdb
 C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\bin\Debug\TestLibrary.dll
 C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\bin\Debug\TestLibrary.pdb
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\obj\Debug\Test_Application.csprojResolveAssemblyReference.cache

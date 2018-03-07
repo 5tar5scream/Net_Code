@@ -25,7 +25,6 @@ namespace STAF.Automation.Utility
                         clsTest.TestDescription = tc.Description;
                         clsTest.TestIgnore = tc.Ignore;
                     }
-
                 }
                 return clsTest;
             }
