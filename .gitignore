@@ -1,3 +1,6 @@
 
 *.ide
 *.lock
+*.ide-shm
+*.ide-wal
+STAF/.vs/STAF/v15/.suo

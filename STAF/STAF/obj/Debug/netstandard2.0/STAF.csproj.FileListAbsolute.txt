@@ -1,0 +1,8 @@
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\STAF\STAF\bin\Debug\netstandard2.0\STAF.deps.json
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\STAF\STAF\bin\Debug\netstandard2.0\STAF.dll
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\STAF\STAF\bin\Debug\netstandard2.0\STAF.pdb
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\STAF\STAF\obj\Debug\netstandard2.0\STAF.csproj.CoreCompileInputs.cache
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\STAF\STAF\obj\Debug\netstandard2.0\STAF.AssemblyInfoInputs.cache
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\STAF\STAF\obj\Debug\netstandard2.0\STAF.AssemblyInfo.cs
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\STAF\STAF\obj\Debug\netstandard2.0\STAF.dll
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\STAF\STAF\obj\Debug\netstandard2.0\STAF.pdb
