@@ -183,15 +183,12 @@
   },
   "project": {
     "version": "1.0.0",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ryan FarrugiaRoberts\\Documents\\GitHub\\Net_Code\\STAF\\STAF\\STAF.csproj",
+      "projectUniqueName": "C:\\Users\\Ryan FarrugiaRoberts\\Documents\\GitHub\\Net_Code\\STAF_old\\STAF\\STAF.csproj",
       "projectName": "STAF",
-      "projectPath": "C:\\Users\\Ryan FarrugiaRoberts\\Documents\\GitHub\\Net_Code\\STAF\\STAF\\STAF.csproj",
+      "projectPath": "C:\\Users\\Ryan FarrugiaRoberts\\Documents\\GitHub\\Net_Code\\STAF_old\\STAF\\STAF.csproj",
       "packagesPath": "C:\\Users\\Ryan FarrugiaRoberts\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ryan FarrugiaRoberts\\Documents\\GitHub\\Net_Code\\STAF\\STAF\\obj\\",
+      "outputPath": "C:\\Users\\Ryan FarrugiaRoberts\\Documents\\GitHub\\Net_Code\\STAF_old\\STAF\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
