@@ -9,12 +9,12 @@ namespace STAF.Objects
 
         #region fields
         private string input;
-        private int[] attributes;
+        private string[] attributes;
         private string type;
         #endregion
 
         #region constructors
-        public clsClassifiedInput(string inInput, int[] inAttributes, string inType)
+        public clsClassifiedInput(string inInput, string[] inAttributes, string inType)
         {
             input = inInput;
             attributes = inAttributes;
@@ -31,7 +31,7 @@ namespace STAF.Objects
         //you need visual studio 2017 for these
         #region properties
         public string Input { get => input; set => input = value; }
-        public int[] Attributes { get => attributes; set => attributes = value; }
+        public string[] Attributes { get => attributes; set => attributes = value; }
         public string Type { get => type; set => type = value; }
         #endregion
     }

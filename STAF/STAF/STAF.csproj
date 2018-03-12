@@ -30,7 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,10 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Automation\Automation.cs" />
+    <Compile Include="Automation\Utility\CSVHelper.cs" />
     <Compile Include="Automation\Utility\Invoker.cs" />
     <Compile Include="Automation\Utility\ObjectHelper.cs" />
     <Compile Include="Automation\Utility\StringToConsole.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="CustomAttributes\TestCase.cs" />
     <Compile Include="CustomAttributes\TestClass.cs" />
     <Compile Include="ENUMS\clsEnums.cs" />

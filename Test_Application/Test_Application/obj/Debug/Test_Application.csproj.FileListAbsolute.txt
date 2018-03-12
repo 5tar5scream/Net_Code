@@ -2,10 +2,11 @@ C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Ap
 C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\bin\Debug\Test_Application.exe
 C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\bin\Debug\Test_Application.pdb
 C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\bin\Debug\STAF.dll
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\bin\Debug\TestLibrary.dll
 C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\bin\Debug\STAF.pdb
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\bin\Debug\TestLibrary.pdb
 C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\obj\Debug\Test_Application.csproj.CoreCompileInputs.cache
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\obj\Debug\Test_Application.csproj.CopyComplete
 C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\obj\Debug\Test_Application.exe
 C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\obj\Debug\Test_Application.pdb
-C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\bin\Debug\TestLibrary.dll
-C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\bin\Debug\TestLibrary.pdb
 C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\obj\Debug\Test_Application.csprojResolveAssemblyReference.cache
