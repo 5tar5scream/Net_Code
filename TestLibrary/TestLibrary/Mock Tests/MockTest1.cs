@@ -40,8 +40,6 @@ namespace TestLibrary.Mock_Tests
             clsCondition condition2 = new clsCondition(clsEnums.Condition.STRING_LENGTH_EQUAL, input.Length, expectedOutPut.Length, ExpectedOutput.CompareStringLength(input.Length, expectedOutPut.Length, clsEnums.Operand.EQUAL));
             TestOracle.AppendConditions(condition2);
             TestOracle.ValidateTestConditions();
-
-
         }
     }
 }
