@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace STAF.ML
+namespace STAF
 {
-    class Classifier
+    public class Class1
     {
     }
 }

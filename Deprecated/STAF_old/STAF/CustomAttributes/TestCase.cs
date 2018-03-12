@@ -14,7 +14,7 @@ namespace STAF.CustomAttributes
 
 
         #region constructors
-        public TestCase(string inDescription, bool inTestIgnore)
+        public TestCase(string inDescription,  bool inTestIgnore)
         {
             testDescription = inDescription;
             testIgnore = inTestIgnore;
