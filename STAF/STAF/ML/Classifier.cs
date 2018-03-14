@@ -4,20 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using STAF.Objects;
+using STAF.Automation.Utility;
 
 namespace STAF.ML
 {
     public static class Classifier
     {
-        public static string ClassifyInput(string input)
-        {
-            string Classification = "";
-            List<string> outList = new List<string>();
-            string[] ConvertedList;
+        private static string[] ConvertedList;
+        private static List<clsClassifiedInput> DataSet;
+        private static List<clsClassifiedInput> MatchingRows = new List<clsClassifiedInput>();
+        private static string Classification = "";
+        private static double dsLength = 0;
+        private static int matchCounter = 0;
 
+        public static string ClassifyInput(string input, int accuracy)
+        {
+            
+            List<string> outList = new List<string>();
+            
             outList.Add(isNumberic(input));
             outList.Add(isAlphabetical(input));
             outList.Add(isAlphaNumeric(input));
+            outList.Add(ContainsLetters(input));
+            outList.Add(ContainsNumbers(input));
+            outList.Add(ContainsSpecialCharacters(input));
+            outList.Add(PercentageLettersGreaterThan25(input));
+            outList.Add(PercentageLettersLessThan25(input));
+            outList.Add(PercentageNumberGreaterThan25(input));
+            outList.Add(PercentageNumberLessThan25(input));
             outList.Add(ContainsFullStop(input));
             outList.Add(ContainsAtSymbol(input));
             outList.Add(ContainsDotCom(input));
@@ -44,8 +59,17 @@ namespace STAF.ML
             outList.Add(StartsWithPlus(input));
 
             ConvertedList = outList.ToArray();
-
-
+            StringToConsole.PrintToConsole("input:" + input);
+            StringToConsole.Print(ConvertedList);
+            RetrieveDataSet();
+            FilterMatchingRows(accuracy);
+            foreach (clsClassifiedInput item in MatchingRows)
+            {
+                StringToConsole.PrintToConsole("input:" + item.Input);
+                StringToConsole.Print(item.Attributes);
+            }
+            SelectMostProbableClass();
+            StringToConsole.PrintToConsole(Classification);
             return Classification;
         }
 
@@ -76,7 +100,30 @@ namespace STAF.ML
         }
         private static string isAlphaNumeric(string input)
         {
-            if (Regex.IsMatch(input, @"^[a-zA-Z0-9]*$"))
+
+            bool containsLetters = false;
+            bool containsDigits = false;
+            int outNumber;
+
+            char[] chars = input.ToCharArray();
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                if (Regex.IsMatch(chars[i].ToString(), @"^[a-zA-Z]+$"))
+                {
+                    containsLetters = true;
+                }
+            }
+            for (int j = 0; j < chars.Length; j++)
+            {
+                containsDigits = int.TryParse(chars[j].ToString(), out outNumber);
+                if (containsDigits)
+                {
+                    break;
+                }
+            }
+
+            if (containsLetters && containsDigits)
             {
                 return "1";
             }
@@ -84,6 +131,173 @@ namespace STAF.ML
             {
                 return "0";
             }
+        }
+        private static string ContainsLetters(string input)
+        {
+            bool containsLetters = false;
+
+            char[] chars = input.ToCharArray();
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                if (Regex.IsMatch(chars[i].ToString(), @"^[a-zA-Z]+$"))
+                {
+                    containsLetters = true;
+                    break;
+                }
+                
+            }
+            if (containsLetters)
+            {
+                return "1";
+            }
+            else
+            {
+                return "0";
+            }
+        }
+        private static string ContainsNumbers(string input)
+        {
+            bool containsNumbers = false;
+            int outNumber = 0;
+
+            char[] chars = input.ToCharArray();
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                containsNumbers = int.TryParse(chars[i].ToString(), out outNumber);
+                if (containsNumbers)
+                {
+                    break;
+                }
+            }
+            if (containsNumbers)
+            {
+                return "1";
+            }
+            else
+            {
+                return "0";
+            }
+        }
+        private static string ContainsSpecialCharacters(string input)
+        {
+            if (!Regex.IsMatch(input, @"^[a-zA-Z0-9 ]*$"))
+            {
+                return "1";
+            }
+            else
+            {
+                return "0";
+            }
+        }
+        private static string PercentageLettersGreaterThan25(string input)
+        {
+            int length = input.Length;
+            int counter = 0;
+            char[] chars = input.ToCharArray();
+            bool hasLetters;
+            int outNumber;
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                hasLetters = int.TryParse(chars[i].ToString(), out outNumber);
+                if(!hasLetters)
+                {
+                    counter++;
+                }
+            }
+
+            if(CalculatePercentage(counter, length) > 25)
+            {
+                return "1";
+            }
+            else
+            {
+                return "0";
+            }
+
+        }
+        private static string PercentageLettersLessThan25(string input)
+        {
+            int length = input.Length;
+            int counter = 0;
+            char[] chars = input.ToCharArray();
+            bool hasLetters;
+            int outNumber;
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                hasLetters = int.TryParse(chars[i].ToString(), out outNumber);
+                if (!hasLetters)
+                {
+                    counter++;
+                }
+            }
+
+            if (CalculatePercentage(counter, length) < 25)
+            {
+                return "1";
+            }
+            else
+            {
+                return "0";
+            }
+
+        }
+        private static string PercentageNumberGreaterThan25(string input)
+        {
+            int length = input.Length;
+            int counter = 0;
+            char[] chars = input.ToCharArray();
+            bool hasNumbers;
+            int outNumber;
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                hasNumbers = int.TryParse(chars[i].ToString(), out outNumber);
+                if (hasNumbers)
+                {
+                    counter++;
+                }
+            }
+
+            if (CalculatePercentage(counter, length) > 25)
+            {
+                return "1";
+            }
+            else
+            {
+                return "0";
+            }
+
+        }
+        private static string PercentageNumberLessThan25(string input)
+        {
+            int length = input.Length;
+            int counter = 0;
+            char[] chars = input.ToCharArray();
+            bool hasNumbers;
+            int outNumber;
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                hasNumbers = int.TryParse(chars[i].ToString(), out outNumber);
+                if (hasNumbers)
+                {
+                    counter++;
+                }
+            }
+
+            if (CalculatePercentage(counter, length) < 25)
+            {
+                return "1";
+            }
+            else
+            {
+                return "0";
+            }
+
         }
         private static string ContainsFullStop(string input)
         {
@@ -341,7 +555,7 @@ namespace STAF.ML
         private static string StartsWithPlus(string input)
         {
             char[] letters = input.ToCharArray();
-            if (input.Contains(letters[0].ToString()))
+            if (letters[0] == '+')
             {
                 return "1";
             }
@@ -352,6 +566,88 @@ namespace STAF.ML
         }
         #endregion
 
+        #region ML functions
+        private static void RetrieveDataSet()
+        {
+            DataSet = CSVHelper.ReadDataSet();
+        }
+        private static double CalculatePercentage(int digit)
+        {
+            return Math.Round(((digit / dsLength) * 100), 0);
+        }
+        private static double CalculatePercentage(int digit, int max)
+        {
+            return Math.Round((double)((digit / max) * 100), 0);
+        }
+        private static void FilterMatchingRows(int accuracy)
+        {
+            foreach (clsClassifiedInput row in DataSet)
+            {
 
+                matchCounter = 0;
+                dsLength = row.Attributes.Length;
+                for (int i = 0; i < row.Attributes.Length; i++)
+                {
+                    if (row.Attributes[i] == ConvertedList[i])
+                    {
+                        matchCounter++;
+                    }
+                }
+                if (CalculatePercentage(matchCounter) >= accuracy)
+                {
+                    MatchingRows.Add(row);
+                }
+
+            }
+        }
+        private static void SelectMostProbableClass()
+        {
+            int mostOccurrences = 0;
+            int counter = 0;
+            string className = "";
+            string chosenClass = "";
+
+            try
+            {
+                foreach (clsClassifiedInput item in MatchingRows)
+                {
+                    if (className != item.Type || className == "")
+                    {
+                        className = item.Type;
+                        counter = 0;
+                        counter++;
+                    }
+                    else
+                    {
+                        counter++;
+                        if (mostOccurrences < counter)
+                        {
+                            mostOccurrences = counter;
+                            chosenClass = className;
+                        }
+                    }
+                }
+
+                Classification = chosenClass;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
+        public static List<clsClassifiedInput> ReturnInputsByClass()
+        {
+            List<clsClassifiedInput> outList = new List<clsClassifiedInput>();
+            foreach (clsClassifiedInput item in DataSet)
+            {
+                if (item.Type == Classification)
+                {
+                    outList.Add(item);
+                }
+            }
+            return outList;
+        }
+        #endregion
     }
 }

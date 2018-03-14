@@ -37,6 +37,18 @@ namespace STAF.Automation.Utility
             lstToPrint.Clear();
         }
 
+        public static void Print(string[] values)
+        {
+            int arrayLength = values.Length;
+            for (int i = 0; i < arrayLength; i++)
+            {
+                Console.Write(",");
+                Console.Write(values[i]);
+            }
+            Console.WriteLine();
+        }
+
+
 
 
     }
