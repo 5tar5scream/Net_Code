@@ -1,0 +1,13 @@
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\DsManager\DsManager\bin\Debug\DsManager.exe.config
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\DsManager\DsManager\bin\Debug\DsManager.exe
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\DsManager\DsManager\bin\Debug\DsManager.pdb
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\DsManager\DsManager\bin\Debug\STAF.dll
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\DsManager\DsManager\bin\Debug\STAF.pdb
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\DsManager\DsManager\obj\Debug\DsManager.csprojResolveAssemblyReference.cache
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\DsManager\DsManager\obj\Debug\DsManager.Form1.resources
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\DsManager\DsManager\obj\Debug\DsManager.Properties.Resources.resources
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\DsManager\DsManager\obj\Debug\DsManager.csproj.GenerateResource.cache
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\DsManager\DsManager\obj\Debug\DsManager.csproj.CoreCompileInputs.cache
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\DsManager\DsManager\obj\Debug\DsManager.csproj.CopyComplete
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\DsManager\DsManager\obj\Debug\DsManager.exe
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\DsManager\DsManager\obj\Debug\DsManager.pdb

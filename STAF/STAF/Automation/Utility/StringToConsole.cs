@@ -48,7 +48,13 @@ namespace STAF.Automation.Utility
             Console.WriteLine();
         }
 
-
+        public static void Print(string[][] values)
+        {
+            for (int i = 0; i < values.Length; i++)
+            {
+                Print(values[i]);
+            }
+        }
 
 
     }

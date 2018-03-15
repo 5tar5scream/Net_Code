@@ -6,11 +6,15 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using STAF.Objects;
 using STAF.Automation.Utility;
+using System.Diagnostics;
+using System.Configuration;
 
 namespace STAF.ML
 {
     public static class Classifier
     {
+
+        #region fields
         private static string[] ConvertedList;
         private static List<clsClassifiedInput> DataSet;
         private static List<clsClassifiedInput> MatchingRows = new List<clsClassifiedInput>();
@@ -18,47 +22,29 @@ namespace STAF.ML
         private static double dsLength = 0;
         private static int matchCounter = 0;
 
+        private static string[][] CompleteDS;
+        private static string[][] TrainingSet;
+        private static string[][] TestingSet;
+        private static string[][] ShuffeledDS;
+
+        private static double dataSplit = 0.80;
+
+        private static int MaxConditions;
+        private static int MaxRules;
+        private static int AccuracyThreshold;
+        private static int TrialTreshold;
+        private static int CurrentTrial;
+
+        private static List<int[]> GeneratedRules = new List<int[]>();
+        private static Dictionary<string, int>[] lookupDictionary;
+
+
+        #endregion
+
+        //this method classifies the input using entire dataset instead of generating rules. It works fine but not very efficient on large datasets
         public static string ClassifyInput(string input, int accuracy)
         {
-            
-            List<string> outList = new List<string>();
-            
-            outList.Add(isNumberic(input));
-            outList.Add(isAlphabetical(input));
-            outList.Add(isAlphaNumeric(input));
-            outList.Add(ContainsLetters(input));
-            outList.Add(ContainsNumbers(input));
-            outList.Add(ContainsSpecialCharacters(input));
-            outList.Add(PercentageLettersGreaterThan25(input));
-            outList.Add(PercentageLettersLessThan25(input));
-            outList.Add(PercentageNumberGreaterThan25(input));
-            outList.Add(PercentageNumberLessThan25(input));
-            outList.Add(ContainsFullStop(input));
-            outList.Add(ContainsAtSymbol(input));
-            outList.Add(ContainsDotCom(input));
-            outList.Add(ContainsWWW(input));
-            outList.Add(LengthGreaterThan2(input));
-            outList.Add(LengthGreaterThan5(input));
-            outList.Add(LengthGreaterThan8(input));
-            outList.Add(LengthGreaterThan11(input));
-            outList.Add(LengthGreaterThan14(input));
-            outList.Add(LengthGreaterThan17(input));
-            outList.Add(LengthGreaterThan20(input));
-            outList.Add(LengthLessThan2(input));
-            outList.Add(LengthLessThan5(input));
-            outList.Add(LengthLessThan8(input));
-            outList.Add(LengthLessThan11(input));
-            outList.Add(LengthLessThan14(input));
-            outList.Add(LengthLessThan17(input));
-            outList.Add(LengthLessThan20(input));
-            outList.Add(ContainsWhiteSpace(input));
-            outList.Add(ContainsComma(input));
-            outList.Add(ContainsCurrencySymbol(input));
-            outList.Add(ContainsDash(input));
-            outList.Add(ContainsSlash(input));
-            outList.Add(StartsWithPlus(input));
-
-            ConvertedList = outList.ToArray();
+            ConvertedList = InputToArray(input);
             StringToConsole.PrintToConsole("input:" + input);
             StringToConsole.Print(ConvertedList);
             RetrieveDataSet();
@@ -73,11 +59,25 @@ namespace STAF.ML
             return Classification;
         }
 
+        public static void StartClassification()
+        {
+            Setup();
+            TrainData();
+            PopulateLookupDictionary();
+            GenerateRules();
+            Debugger.Break();
+        }
+
         #region Validation Functions
         private static string isNumberic(string input)
         {
             int outNumber;
+            double outNumber2;
             bool flag = int.TryParse(input, out outNumber);
+            if (!flag)
+            {
+                flag = double.TryParse(input, out outNumber2);
+            }
             if (flag)
             {
                 return "1";
@@ -564,9 +564,91 @@ namespace STAF.ML
                 return "0";
             }
         }
+        public static string[] InputToArray(string input)
+        {
+            List<string> outList = new List<string>();
+
+            outList.Add(isNumberic(input));
+            outList.Add(isAlphaNumeric(input));
+            outList.Add(isAlphabetical(input));
+            outList.Add(ContainsLetters(input));
+            outList.Add(ContainsNumbers(input));
+            outList.Add(ContainsSpecialCharacters(input));
+            outList.Add(PercentageLettersGreaterThan25(input));
+            outList.Add(PercentageLettersLessThan25(input));
+            outList.Add(PercentageNumberGreaterThan25(input));
+            outList.Add(PercentageNumberLessThan25(input));
+            outList.Add(ContainsFullStop(input));
+            outList.Add(ContainsAtSymbol(input));
+            outList.Add(ContainsDotCom(input));
+            outList.Add(ContainsWWW(input));
+            outList.Add(LengthGreaterThan2(input));
+            outList.Add(LengthGreaterThan5(input));
+            outList.Add(LengthGreaterThan8(input));
+            outList.Add(LengthGreaterThan11(input));
+            outList.Add(LengthGreaterThan14(input));
+            outList.Add(LengthGreaterThan17(input));
+            outList.Add(LengthGreaterThan20(input));
+            outList.Add(LengthLessThan2(input));
+            outList.Add(LengthLessThan5(input));
+            outList.Add(LengthLessThan8(input));
+            outList.Add(LengthLessThan11(input));
+            outList.Add(LengthLessThan14(input));
+            outList.Add(LengthLessThan17(input));
+            outList.Add(LengthLessThan20(input));
+            outList.Add(ContainsWhiteSpace(input));
+            outList.Add(ContainsComma(input));
+            outList.Add(ContainsCurrencySymbol(input));
+            outList.Add(ContainsDash(input));
+            outList.Add(ContainsSlash(input));
+            outList.Add(StartsWithPlus(input));
+
+            string[] converted = outList.ToArray();
+            return converted;
+        }
+        public static List<string> InputToList(string input)
+        {
+            List<string> outList = new List<string>();
+
+            outList.Add(isNumberic(input));
+            outList.Add(isAlphaNumeric(input));
+            outList.Add(isAlphabetical(input));
+            outList.Add(ContainsLetters(input));
+            outList.Add(ContainsNumbers(input));
+            outList.Add(ContainsSpecialCharacters(input));
+            outList.Add(PercentageLettersGreaterThan25(input));
+            outList.Add(PercentageLettersLessThan25(input));
+            outList.Add(PercentageNumberGreaterThan25(input));
+            outList.Add(PercentageNumberLessThan25(input));
+            outList.Add(ContainsFullStop(input));
+            outList.Add(ContainsAtSymbol(input));
+            outList.Add(ContainsDotCom(input));
+            outList.Add(ContainsWWW(input));
+            outList.Add(LengthGreaterThan2(input));
+            outList.Add(LengthGreaterThan5(input));
+            outList.Add(LengthGreaterThan8(input));
+            outList.Add(LengthGreaterThan11(input));
+            outList.Add(LengthGreaterThan14(input));
+            outList.Add(LengthGreaterThan17(input));
+            outList.Add(LengthGreaterThan20(input));
+            outList.Add(LengthLessThan2(input));
+            outList.Add(LengthLessThan5(input));
+            outList.Add(LengthLessThan8(input));
+            outList.Add(LengthLessThan11(input));
+            outList.Add(LengthLessThan14(input));
+            outList.Add(LengthLessThan17(input));
+            outList.Add(LengthLessThan20(input));
+            outList.Add(ContainsWhiteSpace(input));
+            outList.Add(ContainsComma(input));
+            outList.Add(ContainsCurrencySymbol(input));
+            outList.Add(ContainsDash(input));
+            outList.Add(ContainsSlash(input));
+            outList.Add(StartsWithPlus(input));
+            return outList;
+        }
         #endregion
 
-        #region ML functions
+        #region misc functions
         private static void RetrieveDataSet()
         {
             DataSet = CSVHelper.ReadDataSet();
@@ -632,7 +714,7 @@ namespace STAF.ML
             }
             catch (Exception ex)
             {
-                throw;
+                //throw
             }
 
         }
@@ -648,6 +730,246 @@ namespace STAF.ML
             }
             return outList;
         }
+        private static string[][] ShuffleArray(string[][] inOriginal)
+        {
+            Random rand = new Random(0);
+            string[][] outArray = inOriginal; //check on this
+            int arrayLength = outArray.Length;
+
+            for (int i = 0; i < arrayLength; i++)
+            {
+                int nextNo = rand.Next(i, arrayLength);
+                string[] Row = outArray[nextNo];
+                outArray[nextNo] = outArray[i];
+                outArray[i] = Row;
+            }
+
+            return outArray;
+        }
+        private static void CopyArrayData(string[][] inSecondaryArray, string[][] inPrimaryArray, int inStartIndex, int inLength)
+        {
+            for (int i = 0; i < inLength; i++)
+            {
+                inSecondaryArray[i] = inPrimaryArray[i+inStartIndex];
+            }
+        }
         #endregion
+
+        #region Machine Learning
+        private static void Setup()
+        {
+            try
+            {
+                MaxConditions = int.Parse(ConfigurationManager.AppSettings["MaxConditions"].ToString());
+                AccuracyThreshold = int.Parse(ConfigurationManager.AppSettings["AccuracyThreshold"].ToString());
+                MaxRules = int.Parse(ConfigurationManager.AppSettings["MaxRules"].ToString());
+            }
+            catch (Exception)
+            {
+                //use default;
+                MaxConditions = 10;
+                AccuracyThreshold = 90;
+                MaxRules = 500;
+            }
+            finally
+            {
+                TrialTreshold = MaxRules * 10000;
+            }
+          
+        }
+        private static void TrainData()
+        { 
+            CompleteDS = CSVHelper.ReturnDataSetArray();
+
+            int dsLength = CompleteDS.Length;
+            int tsLength = (int)(dsLength * dataSplit);
+            int tstLength = dsLength - tsLength;
+
+            TrainingSet = new string[tsLength][];
+            TestingSet = new string[tstLength][];
+
+            //shuffle original ds
+            ShuffeledDS = ShuffleArray(CompleteDS);
+
+            //fill training and test sets
+            CopyArrayData(TrainingSet, ShuffeledDS, 0, tsLength);
+            CopyArrayData(TestingSet, ShuffeledDS, tsLength, tstLength);
+
+            StringToConsole.PrintToConsole("TrainingSet");
+            StringToConsole.Print(TrainingSet);
+            StringToConsole.PrintToConsole("");
+            StringToConsole.PrintToConsole("TestingSet");
+            StringToConsole.Print(TestingSet);
+
+            //Debugger.Break();
+
+        }
+        private static void GenerateRules()
+        {
+            int rowCount = TrainingSet.Length;
+            int columnCount = TrainingSet[0].Length;
+            Random random = new Random(0);
+            CurrentTrial = 0;
+
+            while (ValidateTrainingProgress())
+            {
+                CurrentTrial++;
+                int[] tempRule = new int[MaxConditions * 2 + 1];
+                int row = random.Next(0, rowCount);
+                int[] selectedAttributes = SelectRandomAttributes(MaxConditions,columnCount-1);
+
+                for (int i = 0; i < MaxConditions; i++)
+                {
+                    //get the next attribute column
+                    int attributeCol = selectedAttributes[i];
+                    string str = TrainingSet[row][attributeCol];
+                    int digit = lookupDictionary[attributeCol][str];
+                    tempRule[i * 2] = attributeCol;
+                    tempRule[i * 2 + 1] = digit;
+                }
+
+                string xClass = TrainingSet[row][columnCount - 1];
+                int xDigit = lookupDictionary[columnCount - 1][xClass];
+                tempRule[MaxConditions * 2] = xDigit;
+
+                //check for dupes
+                if (GeneratedRules.Contains(tempRule))
+                {
+                    continue;
+                }
+                //check if they meet the threshold
+                if (!ValidateAccuracy(tempRule))
+                {
+                    continue;
+                }
+
+                //rule good so save it
+                int[] rule = tempRule;
+                GeneratedRules.Add(rule);
+            }
+
+        }
+        private static bool ValidateAccuracy(int[]inPotentialRule)
+        {
+            int rowCount = TrainingSet.Length;
+            int columnCount = TrainingSet[0].Length;
+
+            int pass = 0;
+            int fail = 0;
+
+            for (int i = 0; i < rowCount; i++)
+            {
+
+                if (!ValidateRule(inPotentialRule,TrainingSet[i]))
+                {
+                    continue;
+                }
+
+                int classCol = inPotentialRule[inPotentialRule.Length - 1];//get last value
+                string classValue = TrainingSet[i][columnCount - 1];
+                int x = lookupDictionary[columnCount - 1][classValue];
+                if (classCol == x)
+                {
+                    pass++;
+                }
+                else
+                {
+                    fail++;
+                }
+            }
+            if (CalculatePercentage(pass, (pass + fail)) < AccuracyThreshold)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        private static bool ValidateRule (int[] inRule, string[] inAttributes)
+        {
+            //check if rule applies to the current row
+            for (int i = 0; i < inRule.Length / 2; i++)//cut the length in half because of the rule format
+            {
+                int attributeValue = inRule[i * 2]; 
+                int ruleValue = inRule[i * 2 + 1]; // rule value of the feature
+                string dsValue = inAttributes[attributeValue]; 
+                int dValue = lookupDictionary[attributeValue][dsValue];
+                if (ruleValue != dValue)
+                {
+                    //not applicable rule
+                    return false;
+                }
+            }
+            return true;
+        }
+        private static void PopulateLookupDictionary()
+        {
+            int rowCount = TrainingSet.Length;
+            int columnCount = TrainingSet[0].Length;
+            lookupDictionary = new Dictionary<string, int>[columnCount];
+
+            for (int i = 1; i < columnCount; i++)
+            {
+                lookupDictionary[i] = new Dictionary<string, int>();
+                int index = 0;
+                for (int j = 0; j < rowCount; j++)
+                {
+                    string value = TrainingSet[j][i];
+                    if (lookupDictionary[i].ContainsKey(value) == false)
+                    {
+                        lookupDictionary[i].Add(value, index++);
+                    }
+                }
+            }
+        }
+        private static bool ValidateTrainingProgress()
+        {
+            if (GeneratedRules.Count < MaxRules)
+            {
+                if (CurrentTrial < TrialTreshold)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private static int[] SelectRandomAttributes(int maxResults, int inColumnRange)
+        {
+            int[] outResult = new int[maxResults];
+            int counter = 0;
+
+            Random random = new Random(0);
+            while (counter < (inColumnRange * 2))
+            {
+                List<int> SelectedAttributes = new List<int>();
+                for (int i = 0; i < outResult.Length; i++)
+                {
+                    int col = random.Next(1, inColumnRange);
+                    //dont accept duplicates
+                    if (!SelectedAttributes.Contains(col))
+                    {
+                        outResult[i] = col;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                counter++;
+            }
+
+            Array.Sort(outResult);
+            return outResult;
+        }
+        #endregion
+
     }
 }

@@ -3,8 +3,8 @@ using Microsoft.VisualBasic.FileIO;
 using STAF.Objects;
 using System.Collections.Generic;
 using System.Configuration;
-
-
+using System.Text;
+using System.IO;
 
 namespace STAF.Automation.Utility
 {
@@ -24,7 +24,7 @@ namespace STAF.Automation.Utility
                     while (!csvParser.EndOfData)
                     {
                         string[] output = csvParser.ReadFields();
-                        string[] attributes = new string[output.Length-2];
+                        string[] attributes = new string[output.Length - 2];
                         clsClassifiedInput input = new clsClassifiedInput();
                         int counter = 0;
                         input.Input = output[0];
@@ -48,15 +48,84 @@ namespace STAF.Automation.Utility
             }
         }
 
+        public static string[][] ReturnDataSetArray()
+        {
+
+            try
+            {
+                string[][] outDataSet = new string[CountRows()][];
+
+                using (TextFieldParser csvParser = new TextFieldParser(ConfigurationManager.AppSettings["DataSet"].ToString()))
+                {
+                    csvParser.TextFieldType = FieldType.Delimited;
+                    csvParser.SetDelimiters(",");
+                    int counter = 0;
+                    while (!csvParser.EndOfData)
+                    {
+                        string[] output = csvParser.ReadFields();
+                        outDataSet[counter] = output;
+                        counter++;
+                    }
+                }
+                return outDataSet;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         private static string[] RemoveElements(string[] inElements)
         {
             List<string> lst = new List<string>(inElements);
             string[] output;
             lst.RemoveAt(0);
-            lst.RemoveAt(lst.Count-1);
+            lst.RemoveAt(lst.Count - 1);
             return output = lst.ToArray();
         }
-          
+
+        public static void AppendToCSV(List<string> csvRow)
+        {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(ConfigurationManager.AppSettings["DataSet"].ToString(),append : true))
+                {
+                    StringBuilder builder = new StringBuilder();
+                    int counter = 0;
+                    foreach (string item in csvRow)
+                    {
+                        if (counter.Equals(csvRow.Count-1))
+                        {
+                            builder.Append(item);
+                        }
+                        else
+                        {
+                            builder.Append(item + ",");
+                        }
+                        counter++;
+                    }
+                    writer.WriteLine(builder.ToString());
+                    writer.Flush();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message); 
+            }
+        }
+        
+        private static int CountRows()
+        {
+            int outCount = 0;
+            using (var reader = File.OpenText(ConfigurationManager.AppSettings["DataSet"].ToString()))
+            {
+                while (reader.ReadLine() != null)
+                {
+                    outCount++;
+                }
+            }
+            return outCount-1;
+        }
     }
 }
 
