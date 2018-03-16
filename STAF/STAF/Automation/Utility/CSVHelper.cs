@@ -50,11 +50,9 @@ namespace STAF.Automation.Utility
 
         public static string[][] ReturnDataSetArray()
         {
-
             try
             {
                 string[][] outDataSet = new string[CountRows()][];
-
                 using (TextFieldParser csvParser = new TextFieldParser(ConfigurationManager.AppSettings["DataSet"].ToString()))
                 {
                     csvParser.TextFieldType = FieldType.Delimited;
@@ -124,7 +122,7 @@ namespace STAF.Automation.Utility
                     outCount++;
                 }
             }
-            return outCount-1;
+            return outCount;
         }
     }
 }
