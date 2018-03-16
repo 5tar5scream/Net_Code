@@ -59,13 +59,20 @@ namespace STAF.ML
             return Classification;
         }
 
-        public static void StartClassification()
+
+
+        private static void StartDataTraining()
         {
             Setup();
             TrainData();
             PopulateLookupDictionary();
             GenerateRules();
             Debugger.Break();
+        }
+
+        public static void StartClassification()
+        {
+            StartDataTraining();
         }
 
         #region Validation Functions
@@ -865,10 +872,10 @@ namespace STAF.ML
                     continue;
                 }
 
-                int classCol = inPotentialRule[inPotentialRule.Length - 1];//get last value
+                int classIndex = inPotentialRule[inPotentialRule.Length - 1];//get last value
                 string classValue = TrainingSet[i][columnCount - 1];
-                int x = lookupDictionary[columnCount - 1][classValue];
-                if (classCol == x)
+                int lookupValue = lookupDictionary[columnCount - 1][classValue];
+                if (classIndex == lookupValue)
                 {
                     pass++;
                 }
@@ -893,9 +900,9 @@ namespace STAF.ML
             {
                 int attributeValue = inRule[i * 2]; 
                 int ruleValue = inRule[i * 2 + 1]; // rule value of the feature
-                string dsValue = inAttributes[attributeValue]; 
-                int dValue = lookupDictionary[attributeValue][dsValue];
-                if (ruleValue != dValue)
+                string dataSetValue = inAttributes[attributeValue]; 
+                int dictionaryIndex = lookupDictionary[attributeValue][dataSetValue];
+                if (ruleValue != dictionaryIndex)
                 {
                     //not applicable rule
                     return false;
@@ -907,6 +914,7 @@ namespace STAF.ML
         {
             int rowCount = TrainingSet.Length;
             int columnCount = TrainingSet[0].Length;
+            //this dictionary stores all the possible values in each column of the training data set
             lookupDictionary = new Dictionary<string, int>[columnCount];
 
             for (int i = 1; i < columnCount; i++)
@@ -916,6 +924,7 @@ namespace STAF.ML
                 for (int j = 0; j < rowCount; j++)
                 {
                     string value = TrainingSet[j][i];
+                    //if the value is not unique dont store it
                     if (lookupDictionary[i].ContainsKey(value) == false)
                     {
                         lookupDictionary[i].Add(value, index++);
@@ -952,6 +961,7 @@ namespace STAF.ML
                 List<int> SelectedAttributes = new List<int>();
                 for (int i = 0; i < outResult.Length; i++)
                 {
+                    //select random attributes in the column
                     int col = random.Next(1, inColumnRange);
                     //dont accept duplicates
                     if (!SelectedAttributes.Contains(col))
