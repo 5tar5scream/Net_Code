@@ -15,11 +15,11 @@ namespace Test_Application
     {
         static void Main(string[] args)
         {
-            //TestLibrary.Mock_Tests.MockTest1 a = new TestLibrary.Mock_Tests.MockTest1();
-            //Automation.AddLibrary(a);
-            //Automation.StartAutomation();
+            TestLibrary.Mock_Tests.MockTest1 a = new TestLibrary.Mock_Tests.MockTest1();
+            Automation.AddLibrary(a);
+            Automation.StartAutomation();
 
-            Classifier.StartClassification();
+           // Classifier.StartClassification();
 
         }
 

@@ -12,7 +12,7 @@ namespace STAF.Objects
         private clsEnums.Condition condition;
         private string input;
         private string expectedOutput;
-        private bool actualOutCome;
+        private bool result;
         #endregion
 
 
@@ -22,7 +22,7 @@ namespace STAF.Objects
             condition = inCondition;
             Input = inInput;
             ExpectedOutput = inExpectedOutput;
-            ActualOutCome = inActualOutcome;
+            Result = inActualOutcome;
         }
 
         public clsCondition(clsEnums.Condition inCondition, int inInput, int inExpectedOutput, bool inActualOutcome)
@@ -30,7 +30,7 @@ namespace STAF.Objects
             condition = inCondition;
             input = inInput.ToString();
             expectedOutput = inExpectedOutput.ToString();
-            ActualOutCome = inActualOutcome;
+            Result = inActualOutcome;
         }
 
         public clsCondition()
@@ -40,11 +40,12 @@ namespace STAF.Objects
         #endregion
 
 
+        //you need visual studio 2017
         #region properties
         public clsEnums.Condition Condition { get => condition; set => condition = value; }
         public string Input { get => input; set => input = value; }
         public string ExpectedOutput { get => expectedOutput; set => expectedOutput = value; }
-        public bool ActualOutCome { get => actualOutCome; set => actualOutCome = value; }
+        public bool Result { get => result; set => result = value; }
         #endregion
     }
 }

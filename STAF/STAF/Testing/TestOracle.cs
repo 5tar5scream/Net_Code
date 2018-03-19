@@ -47,8 +47,8 @@ namespace STAF.Testing
 
             foreach (clsCondition item in conditionList)
             {
-                StringToConsole.AddToListToPrint("Condition: " + counter + ". " + item.Condition + " : Expected - " + item.ExpectedOutput + " and got - " + item.Input + ". Condition met = " + item.ActualOutCome.ToString());
-                if (!item.ActualOutCome)
+                StringToConsole.AddToListToPrint("Condition: " + counter + ". " + item.Condition + ". Input was- " + item.Input + " : Expected output was - " + item.ExpectedOutput + " Actual output was - " + item.Result + ". Condition met = " + item.Result.ToString());
+                if (!item.Result)
                 {
                     currentTest = false;
                 }
