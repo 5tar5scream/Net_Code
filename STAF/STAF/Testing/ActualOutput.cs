@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using STAF.ENUMS;
 using STAF.Objects;
+using STAF.Automation.Utility;
 
 namespace STAF.Testing
 {
-    public static class ExpectedOutput
+    public static class ActualOutput
     {
 
 
@@ -49,6 +50,17 @@ namespace STAF.Testing
                 }
             }
             return false;
+        }
+
+        public static bool AnalyzeNumber(string inString, clsEnums.Condition inCondition)
+        {
+            switch (inCondition)
+            {
+                case clsEnums.Condition.IS_NUMERIC:
+                    return Generic.StringToBool(ValidationHelper.isNumeric(inString));
+                default:
+                    return false;
+            }
         }
 
     }

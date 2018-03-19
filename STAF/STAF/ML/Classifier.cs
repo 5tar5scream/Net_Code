@@ -27,6 +27,10 @@ namespace STAF.ML
         private static string[][] TestingSet;
         private static string[][] ShuffeledDS;
 
+        private static List<string[]> ClassifiedCorrectly = new List<string[]>();
+        private static List<string[]> ClassifiedIncorrectly = new List<string[]>();
+        private static List<string[]> Unclassified = new List<string[]>();
+
         private static double dataSplit = 0.80;
 
         private static int MaxConditions;
@@ -35,9 +39,12 @@ namespace STAF.ML
         private static int TrialTreshold;
         private static int CurrentTrial;
 
+        private static int correctClassifications = 0;
+        private static int invalidClassifications = 0;
+        private static int undefinedClassifications = 0;
+
         private static List<int[]> GeneratedRules = new List<int[]>();
         private static Dictionary<string, int>[] lookupDictionary;
-
 
         #endregion
 
@@ -58,14 +65,18 @@ namespace STAF.ML
             StringToConsole.PrintToConsole(Classification);
             return Classification;
         }
-
-        public static void StartClassification()
+        private static void StartDataTraining()
         {
             Setup();
             TrainData();
             PopulateLookupDictionary();
-            GenerateRules();
-            Debugger.Break();
+            GenerateRules(0);
+            //TestData();
+            //PrintRulesForClass(1);
+        }
+        public static void StartClassification()
+        {
+            StartDataTraining();
         }
 
         #region Validation Functions
@@ -89,7 +100,7 @@ namespace STAF.ML
         }
         private static string isAlphabetical(string input)
         {
-            if(Regex.IsMatch(input, @"^[a-zA-Z]+$"))
+            if (Regex.IsMatch(input, @"^[a-zA-Z]+$"))
             {
                 return "1";
             }
@@ -145,7 +156,7 @@ namespace STAF.ML
                     containsLetters = true;
                     break;
                 }
-                
+
             }
             if (containsLetters)
             {
@@ -202,13 +213,13 @@ namespace STAF.ML
             for (int i = 0; i < chars.Length; i++)
             {
                 hasLetters = int.TryParse(chars[i].ToString(), out outNumber);
-                if(!hasLetters)
+                if (!hasLetters)
                 {
                     counter++;
                 }
             }
 
-            if(CalculatePercentage(counter, length) > 25)
+            if (CalculatePercentage(counter, length) > 25)
             {
                 return "1";
             }
@@ -323,7 +334,7 @@ namespace STAF.ML
         }
         private static string ContainsDotCom(string input)
         {
-            if ( input.ToLower().Contains(".com"))
+            if (input.ToLower().Contains(".com"))
             {
                 return "1";
             }
@@ -659,7 +670,14 @@ namespace STAF.ML
         }
         private static double CalculatePercentage(int digit, int max)
         {
-            return Math.Round((double)((digit / max) * 100), 0);
+
+            double ans = Math.Round((double)((digit / max) * 100), 0);
+            return ans;
+        }
+        private static double CalculatePercentage(double digit, double max)
+        {
+            double ans = (digit / max) * 100;
+            return ans;
         }
         private static void FilterMatchingRows(int accuracy)
         {
@@ -750,8 +768,152 @@ namespace STAF.ML
         {
             for (int i = 0; i < inLength; i++)
             {
-                inSecondaryArray[i] = inPrimaryArray[i+inStartIndex];
+                inSecondaryArray[i] = inPrimaryArray[i + inStartIndex];
             }
+        }
+        private static int ReturnPopularIndex(List<int> inList)
+        {
+            try
+            {
+                if (inList.Count < 1)
+                {
+                    return -1;
+                }
+                inList.Sort();
+
+                int topCount = -999;
+                int MostPopular = 0;
+                int counter = 0;
+                int currentIndex = -999;
+                foreach (int item in inList)
+                {
+                    if (item != currentIndex)
+                    {
+                        currentIndex = item;
+                        counter = 1;
+                        if (counter > topCount)
+                        {
+                            topCount = counter;
+                            MostPopular = currentIndex;
+                        }
+                    }
+                    else
+                    {
+                        counter++;
+                        if (counter > topCount)
+                        {
+                            topCount = counter;
+                            MostPopular = currentIndex;
+                        }
+                    }
+                }
+                return MostPopular;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+
+
+        }
+        private static void PrintResults()
+        {
+            StringToConsole.PrintToConsole("");
+            StringToConsole.PrintToConsole("Test Results");
+            StringToConsole.PrintToConsole("Invalid Classifications: " + invalidClassifications + " out of " + TestingSet.Length);
+            foreach (String[] item in ClassifiedIncorrectly)
+            {
+                StringToConsole.Print(item);
+            }
+            StringToConsole.PrintToConsole("");
+            StringToConsole.PrintToConsole("Valid Classifications: " + correctClassifications + " out of " + TestingSet.Length);
+            foreach (String[] item in ClassifiedCorrectly)
+            {
+                StringToConsole.Print(item);
+            }
+            StringToConsole.PrintToConsole("");
+            StringToConsole.PrintToConsole("No rules match: " + undefinedClassifications + " out of " + TestingSet.Length);
+            foreach (String[] item in Unclassified)
+            {
+                StringToConsole.Print(item);
+            }
+
+        }
+        private static void PrintRules()
+        {
+            StringToConsole.PrintToConsole("");
+            StringToConsole.PrintToConsole("Printing Rules");
+            StringToConsole.PrintToConsole("");
+
+            foreach (int[] item in GeneratedRules)
+            {
+                string[] ConvertedArray = new string[item.Length];
+                for (int i = 0; i < item.Length; i++)
+                {
+                    ConvertedArray[i] = item[i].ToString();
+                }
+                StringToConsole.Print(ConvertedArray);
+            }
+        }
+        private static void PrintRulesForClass(int classIndex)
+        {
+            StringToConsole.PrintToConsole("");
+            StringToConsole.PrintToConsole("Printing Rules with class index: " + classIndex);
+            StringToConsole.PrintToConsole("");
+
+            foreach (int[] item in GeneratedRules)
+            {
+                if (item[item.Length-1] == classIndex)
+                {
+                    string[] ConvertedArray = new string[item.Length];
+                    for (int i = 0; i < item.Length; i++)
+                    {
+                        ConvertedArray[i] = item[i].ToString();
+                    }
+                    StringToConsole.Print(ConvertedArray);
+                }
+            }
+        }
+        private static bool CompareArrays(int[] arr1, int[] arr2)
+        {
+            for (int i = 0; i < arr1.Length; i++)
+            {
+                if (arr1[i] != arr2[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        private static bool ValidateArrayForDuplicates(int[] inArray)
+        {
+            for (int i = 0; i < inArray.Length-1; i++)
+            {
+                if (inArray[i] == inArray[i+1])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private static int[] ReturnRandomIndices(int Length, int Range)
+        {
+            int[] outResult = new int[Length];
+            Random random = new Random();
+            for (int i = 0; i < Length; i++)
+            {
+                outResult[i] = i+1;
+            }
+            for (int j = Length; j < Range; j++)
+            {
+               int Num = random.Next(1, j + 1);
+                if (Num < Length)
+                {
+                    outResult[Num] = j;
+                }
+            }
+            Array.Sort(outResult);
+            return outResult;
         }
         #endregion
 
@@ -775,10 +937,10 @@ namespace STAF.ML
             {
                 TrialTreshold = MaxRules * 10000;
             }
-          
+
         }
         private static void TrainData()
-        { 
+        {
             CompleteDS = CSVHelper.ReturnDataSetArray();
 
             int dsLength = CompleteDS.Length;
@@ -804,11 +966,11 @@ namespace STAF.ML
             //Debugger.Break();
 
         }
-        private static void GenerateRules()
+        private static void GenerateRules(int Seed)
         {
             int rowCount = TrainingSet.Length;
             int columnCount = TrainingSet[0].Length;
-            Random random = new Random(0);
+            Random random = new Random(Seed);
             CurrentTrial = 0;
 
             while (ValidateTrainingProgress())
@@ -816,8 +978,11 @@ namespace STAF.ML
                 CurrentTrial++;
                 int[] tempRule = new int[MaxConditions * 2 + 1];
                 int row = random.Next(0, rowCount);
-                int[] selectedAttributes = SelectRandomAttributes(MaxConditions,columnCount-1);
-
+                int[] selectedAttributes = SelectRandomAttributes(MaxConditions, columnCount - 1);
+                if (selectedAttributes == null)
+                {
+                    selectedAttributes = ReturnRandomIndices(MaxConditions, columnCount-1);
+                }
                 for (int i = 0; i < MaxConditions; i++)
                 {
                     //get the next attribute column
@@ -833,12 +998,12 @@ namespace STAF.ML
                 tempRule[MaxConditions * 2] = xDigit;
 
                 //check for dupes
-                if (GeneratedRules.Contains(tempRule))
+                if (ValidateUniqueRule(tempRule))
                 {
                     continue;
                 }
                 //check if they meet the threshold
-                if (!ValidateAccuracy(tempRule))
+                if (!ValidateRuleAccuracy(tempRule))
                 {
                     continue;
                 }
@@ -849,7 +1014,7 @@ namespace STAF.ML
             }
 
         }
-        private static bool ValidateAccuracy(int[]inPotentialRule)
+        private static bool ValidateRuleAccuracy(int[] inPotentialRule)
         {
             int rowCount = TrainingSet.Length;
             int columnCount = TrainingSet[0].Length;
@@ -860,15 +1025,15 @@ namespace STAF.ML
             for (int i = 0; i < rowCount; i++)
             {
 
-                if (!ValidateRule(inPotentialRule,TrainingSet[i]))
+                if (!ValidateRule(inPotentialRule, TrainingSet[i]))
                 {
                     continue;
                 }
 
-                int classCol = inPotentialRule[inPotentialRule.Length - 1];//get last value
+                int classIndex = inPotentialRule[inPotentialRule.Length - 1];//get last value
                 string classValue = TrainingSet[i][columnCount - 1];
-                int x = lookupDictionary[columnCount - 1][classValue];
-                if (classCol == x)
+                int lookupValue = lookupDictionary[columnCount - 1][classValue];
+                if (classIndex == lookupValue)
                 {
                     pass++;
                 }
@@ -886,16 +1051,16 @@ namespace STAF.ML
                 return true;
             }
         }
-        private static bool ValidateRule (int[] inRule, string[] inAttributes)
+        private static bool ValidateRule(int[] inRule, string[] inAttributes)
         {
             //check if rule applies to the current row
             for (int i = 0; i < inRule.Length / 2; i++)//cut the length in half because of the rule format
             {
-                int attributeValue = inRule[i * 2]; 
+                int attributeValue = inRule[i * 2];
                 int ruleValue = inRule[i * 2 + 1]; // rule value of the feature
-                string dsValue = inAttributes[attributeValue]; 
-                int dValue = lookupDictionary[attributeValue][dsValue];
-                if (ruleValue != dValue)
+                string dataSetValue = inAttributes[attributeValue];
+                int dictionaryIndex = lookupDictionary[attributeValue][dataSetValue];
+                if (ruleValue != dictionaryIndex)
                 {
                     //not applicable rule
                     return false;
@@ -907,6 +1072,7 @@ namespace STAF.ML
         {
             int rowCount = TrainingSet.Length;
             int columnCount = TrainingSet[0].Length;
+            //this dictionary stores all the possible values in each column of the training data set
             lookupDictionary = new Dictionary<string, int>[columnCount];
 
             for (int i = 1; i < columnCount; i++)
@@ -916,6 +1082,7 @@ namespace STAF.ML
                 for (int j = 0; j < rowCount; j++)
                 {
                     string value = TrainingSet[j][i];
+                    //if the value is not unique dont store it
                     if (lookupDictionary[i].ContainsKey(value) == false)
                     {
                         lookupDictionary[i].Add(value, index++);
@@ -952,22 +1119,81 @@ namespace STAF.ML
                 List<int> SelectedAttributes = new List<int>();
                 for (int i = 0; i < outResult.Length; i++)
                 {
+                    //select random attributes in the column
                     int col = random.Next(1, inColumnRange);
-                    //dont accept duplicates
-                    if (!SelectedAttributes.Contains(col))
-                    {
-                        outResult[i] = col;
-                    }
-                    else
-                    {
-                        break;
-                    }
+                    outResult[i] = col;
                 }
-                counter++;
+                //dont accept duplicates
+                Array.Sort(outResult);
+                if (!ValidateArrayForDuplicates(outResult))
+                {
+                    return outResult;
+                }
+                else
+                {
+                    counter++;
+                }
+           
+            }
+            return null;
+        }
+        private static void TestData()
+        {
+            int rowCount = TestingSet.Length;
+            int columnCount = TestingSet[0].Length;
+
+            for (int i = 0; i < rowCount; i++)
+            {
+                int result = CompareToRules(TestingSet[i]);
+                if (result == -1)
+                {
+                    undefinedClassifications++;
+                    Unclassified.Add(TestingSet[i]);
+                    continue;
+                }
+                string classValue = TestingSet[i][columnCount - 1];//get actual class
+                int classIndexValue = lookupDictionary[columnCount - 1][classValue];
+                if (result == classIndexValue)
+                {
+                    correctClassifications++;
+                    ClassifiedCorrectly.Add(TestingSet[i]);
+                }
+                else
+                {
+                    invalidClassifications++;
+                    ClassifiedIncorrectly.Add(TestingSet[i]);
+                }
             }
 
-            Array.Sort(outResult);
+            PrintResults();
+        }
+        private static int CompareToRules(string[] inAttributes)
+        {
+            List<int> classIndexList = new List<int>();
+            int outResult;
+            for (int i = 0; i < GeneratedRules.Count; i++)
+            {
+                int[] currRule = GeneratedRules[i];
+                if (!ValidateRule(currRule, inAttributes))
+                {
+                    continue;
+                }
+                classIndexList.Add(currRule[currRule.Length - 1]);
+            }
+            outResult = ReturnPopularIndex(classIndexList);
             return outResult;
+        }
+        private static bool ValidateUniqueRule(int[] inRule)
+        {
+            for (int i = 0; i < GeneratedRules.Count; i++)
+            {
+                int[] xRule = GeneratedRules[i];
+                if (CompareArrays(inRule,xRule))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         #endregion
 

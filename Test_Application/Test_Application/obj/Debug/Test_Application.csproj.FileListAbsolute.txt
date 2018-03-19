@@ -9,3 +9,4 @@ C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Ap
 C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\obj\Debug\Test_Application.csproj.CopyComplete
 C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\obj\Debug\Test_Application.exe
 C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\obj\Debug\Test_Application.pdb
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\Test_Application\Test_Application\obj\Debug\Test_Application.csprojResolveAssemblyReference.cache

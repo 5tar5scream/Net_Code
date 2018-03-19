@@ -44,9 +44,11 @@
   <ItemGroup>
     <Compile Include="Automation\Automation.cs" />
     <Compile Include="Automation\Utility\CSVHelper.cs" />
+    <Compile Include="Automation\Utility\Generic.cs" />
     <Compile Include="Automation\Utility\Invoker.cs" />
     <Compile Include="Automation\Utility\ObjectHelper.cs" />
     <Compile Include="Automation\Utility\StringToConsole.cs" />
+    <Compile Include="Automation\Utility\ValidationHelper.cs" />
     <Compile Include="CustomAttributes\TestCase.cs" />
     <Compile Include="CustomAttributes\TestClass.cs" />
     <Compile Include="ENUMS\clsEnums.cs" />
@@ -56,7 +58,7 @@
     <Compile Include="Objects\clsCondition.cs" />
     <Compile Include="Objects\clsTestCase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Testing\ExpectedOutput.cs" />
+    <Compile Include="Testing\ActualOutput.cs" />
     <Compile Include="Testing\TestOracle.cs" />
   </ItemGroup>
   <ItemGroup />
