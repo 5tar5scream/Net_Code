@@ -31,6 +31,28 @@ namespace STAF.Automation.Utility
                 return false;
             }
         }
+
+        public static List<string> ArrayToList(string[] inArray)
+        {
+            List<string> outList = new List<string>();
+            for (int i = 0; i < inArray.Length; i++)
+            {
+                outList.Add(inArray[i]);
+            }
+            return outList;
+        }
+
+        public static string[] AppendToArray(string inFirstValue, string inLastValue, string[]inMiddleValues)
+        {
+            string[] outArray = new string[inMiddleValues.Length + 2];
+            outArray[0] = inFirstValue;
+            outArray[outArray.Length - 1] = inLastValue;
+            for (int i = 0; i < inMiddleValues.Length; i++)
+            {
+                outArray[i + 1] = inMiddleValues[i];
+            }
+            return outArray;
+        }
         #endregion
     }
 }

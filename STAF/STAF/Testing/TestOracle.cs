@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using STAF.Automation.Utility;
 using STAF.Objects;
+using STAF.Automation.Excel;
 
 namespace STAF.Testing
 {
     public static class TestOracle
     {
-
+        private static List<clsTestResults> outResults = new List<clsTestResults>();
 
         private static List<clsCondition> conditionList = new List<clsCondition>();
 
@@ -40,10 +41,14 @@ namespace STAF.Testing
             }
         }
 
-        public static void ValidateTestConditions()
+        public static void ValidateTestConditions(string inDescription)
         {
             bool currentTest = true;
             int counter = 1;
+
+            clsTestResults tR = new clsTestResults();
+            tR.Description = inDescription;
+            tR.Input = conditionList[0].Input;
 
             foreach (clsCondition item in conditionList)
             {
@@ -52,18 +57,28 @@ namespace STAF.Testing
                 {
                     currentTest = false;
                 }
+                tR.LstCondition.Add(item);
                 counter++;
             }
             if (currentTest)
             {
                 StringToConsole.AddToListToPrint("Test Passed");
+                tR.Result = "Pass";
             }
             else
             {
                 StringToConsole.AddToListToPrint("Test Failed");
+                tR.Result = "Fail";
             }
+            outResults.Add(tR);
             StringToConsole.PrintList();
             conditionList.Clear();
+        }
+
+        public static void PrintResults()
+        {
+            TestTemplate template = new TestTemplate(outResults);
+            outResults.Clear();
         }
 
     }

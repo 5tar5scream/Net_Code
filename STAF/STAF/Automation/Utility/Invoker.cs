@@ -34,7 +34,7 @@ namespace STAF.Automation.Utility
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //to do
             }
@@ -46,7 +46,7 @@ namespace STAF.Automation.Utility
             {
                 lstTestLibaries.Add(inLibrary);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //to do
             }
