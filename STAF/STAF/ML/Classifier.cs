@@ -49,17 +49,17 @@ namespace STAF.ML
         #endregion
 
         //this method classifies the input using entire dataset instead of generating rules. It works fine but not very efficient on large datasets
-        public static string ClassifyInput(string input, int accuracy)
+        public static string BruteClassifyInput(string input, int accuracy)
         {
             ConvertedList = InputToArray(input);
-            StringToConsole.PrintToConsole("input:" + input);
-            StringToConsole.Print(ConvertedList);
+           // StringToConsole.PrintToConsole("input:" + input);
+           // StringToConsole.Print(ConvertedList);
             RetrieveDataSet();
             FilterMatchingRows(accuracy);
             foreach (clsClassifiedInput item in MatchingRows)
             {
-                StringToConsole.PrintToConsole("input:" + item.Input);
-                StringToConsole.Print(item.Attributes);
+               StringToConsole.PrintToConsole("input:" + item.Input);
+               StringToConsole.Print(item.Attributes);
             }
             SelectMostProbableClass();
             StringToConsole.PrintToConsole(Classification);
@@ -730,7 +730,7 @@ namespace STAF.ML
 
                 Classification = chosenClass;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //throw
             }
@@ -915,6 +915,51 @@ namespace STAF.ML
             Array.Sort(outResult);
             return outResult;
         }
+        private static string GetKeyByValue(Dictionary<string,int> inLookUp, int inValue)
+        {
+            foreach  (KeyValuePair<string,int> item in inLookUp)
+            {
+                if (inValue == item.Value)
+                {
+                    return item.Key;
+                }
+            }
+            return "error";
+        }
+        public static string[] RetrieveInputsByClass(string inInput, string inClass, int inMax)
+        {
+            List<string> lstOfInputs = new List<string>();
+            lstOfInputs.Add(inInput);
+            string[] classInputs;
+            int counter = 1;
+
+            for (int i = 0; i < CompleteDS.Length; i++)
+            {
+                if (CompleteDS[i][CompleteDS[0].Length-1] == inClass)
+                {
+                    if (counter == inMax)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        lstOfInputs.Add(CompleteDS[i][0]);
+                        counter++;
+                    }
+                }
+            }
+
+            classInputs = lstOfInputs.ToArray();
+            return classInputs;
+
+        }
+        public static void AppendToDataset(string[] inInput)
+        {
+            if(!InputHelper.CheckIfExists(inInput[0],CompleteDS))
+            {
+                CSVHelper.AppendToCSV(Generic.ArrayToList(inInput));
+            }
+        }
         #endregion
 
         #region Machine Learning
@@ -957,11 +1002,11 @@ namespace STAF.ML
             CopyArrayData(TrainingSet, ShuffeledDS, 0, tsLength);
             CopyArrayData(TestingSet, ShuffeledDS, tsLength, tstLength);
 
-            StringToConsole.PrintToConsole("TrainingSet");
-            StringToConsole.Print(TrainingSet);
-            StringToConsole.PrintToConsole("");
-            StringToConsole.PrintToConsole("TestingSet");
-            StringToConsole.Print(TestingSet);
+            //StringToConsole.PrintToConsole("TrainingSet");
+            //StringToConsole.Print(TrainingSet);
+            //StringToConsole.PrintToConsole("");
+            //StringToConsole.PrintToConsole("TestingSet");
+            //StringToConsole.Print(TestingSet);
 
             //Debugger.Break();
 
@@ -1194,6 +1239,27 @@ namespace STAF.ML
                 }
             }
             return false;
+        }
+        public static string ClassifyInput(string inInput)
+        {
+            string[] Attributes = InputToArray(inInput);
+            string[] FullRow = new string[Attributes.Length + 2];
+            FullRow[0] = inInput;
+            for (int i = 0; i < Attributes.Length; i++)
+            {
+                FullRow[i + 1] = Attributes[i];
+            }
+
+            FullRow[FullRow.Length - 1] = "UnClassified";
+            int columnCount = FullRow.Length;
+            int result = CompareToRules(FullRow);
+
+            string classValue = GetKeyByValue(lookupDictionary[columnCount-1], result);
+
+            string[] FinalInput = Generic.AppendToArray(inInput, classValue, Attributes);
+            AppendToDataset(FinalInput);
+
+            return classValue;
         }
         #endregion
 

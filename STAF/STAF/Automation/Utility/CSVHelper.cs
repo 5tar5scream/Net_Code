@@ -42,7 +42,7 @@ namespace STAF.Automation.Utility
                 }
                 return lstClassifiedInputs;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
@@ -67,7 +67,7 @@ namespace STAF.Automation.Utility
                 }
                 return outDataSet;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
