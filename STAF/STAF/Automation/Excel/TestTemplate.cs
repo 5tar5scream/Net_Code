@@ -35,22 +35,22 @@ namespace STAF.Automation.Excel
             foreach (clsTestResults item in lstResults)
             {
                 newExcel.createHeaders(rowCounter, 1, "Test Number", "A" + rowCounter, "A" + rowCounter, 0, "LIGHTGRAY", true, 14, "Black", 14);
-                newExcel.addData(rowCounter, 2, testCounter.ToString(), "B" + rowCounter, "B" + rowCounter, "", false,11);
+                newExcel.addData(rowCounter, 2, testCounter.ToString(), "B" + rowCounter, "B" + rowCounter, "@", false,11);
                 rowCounter++;
                 newExcel.createHeaders(rowCounter, 1, "Test Descripion", "A" + rowCounter, "A" + rowCounter, 0, "LIGHTGRAY", true, 14, "Black", 14);
-                newExcel.addData(rowCounter, 2, item.Description, "B" + rowCounter, "B" + rowCounter, "", false,11);
+                newExcel.addData(rowCounter, 2, item.Description, "B" + rowCounter, "B" + rowCounter, "@", false,11);
                 rowCounter++;
                 newExcel.createHeaders(rowCounter, 1, "Test Input", "A" + rowCounter, "A" + rowCounter, 0, "LIGHTGRAY", true, 14, "Black", 14);
-                newExcel.addData(rowCounter, 2, item.Input, "B" + rowCounter, "B" + rowCounter, "", false,11);
+                newExcel.addData(rowCounter, 2, item.Input, "B" + rowCounter, "B" + rowCounter, "@", false,11);
                 rowCounter++;
                 newExcel.createHeaders(rowCounter, 1, "Expected Output", "A" + rowCounter, "A" + rowCounter, 0, "LIGHTGRAY", true, 14, "Black", 14);
-                newExcel.addData(rowCounter, 2, item.ExpectedOutput, "B" + rowCounter, "B" + rowCounter, "", false,11);
+                newExcel.addData(rowCounter, 2, item.ExpectedOutput, "B" + rowCounter, "B" + rowCounter, "@", false,11);
                 rowCounter++;
                 newExcel.createHeaders(rowCounter, 1, "Actual Output", "A" + rowCounter, "A" + rowCounter, 0, "LIGHTGRAY", true, 14, "Black", 14);
-                newExcel.addData(rowCounter, 2, item.ActualOutput, "B" + rowCounter, "B" + rowCounter, "", false,11);
+                newExcel.addData(rowCounter, 2, item.ActualOutput, "B" + rowCounter, "B" + rowCounter, "@", false,11);
                 rowCounter++;
                 newExcel.createHeaders(rowCounter, 1, "Result", "A" + rowCounter, "A" + rowCounter, 0, "LIGHTGRAY", true, 14, "Black", 14);
-                newExcel.addData(rowCounter, 2, item.Result, "B" + rowCounter, "B" + rowCounter, "", false,11);
+                newExcel.addData(rowCounter, 2, item.Result, "B" + rowCounter, "B" + rowCounter, "@", false,11);
                 rowCounter++;
                 testCounter++;
             }
@@ -72,13 +72,13 @@ namespace STAF.Automation.Excel
             foreach (clsTestResults item in lstResults)
             {
                 newExcel.createHeaders(rowCounter, 1, "Test Number", "A" + rowCounter, "A" + rowCounter, 0, "LIGHTGRAY", true, 14, "Black",11);
-                newExcel.addData(rowCounter, 2, testCounter.ToString(), "B" + rowCounter, "B" + rowCounter, "", false,11);
+                newExcel.addData(rowCounter, 2, testCounter.ToString(), "B" + rowCounter, "B" + rowCounter, "@", false,11);
                 rowCounter++;
                 newExcel.createHeaders(rowCounter, 1, "Test Descripion", "A" + rowCounter, "A" + rowCounter, 0, "LIGHTGRAY", true, 14, "Black", 11);
-                newExcel.addData(rowCounter, 2, item.Description, "B" + rowCounter, "B" + rowCounter, "", false,11);
+                newExcel.addData(rowCounter, 2, item.Description, "B" + rowCounter, "B" + rowCounter, "@", false,11);
                 rowCounter++;
                 newExcel.createHeaders(rowCounter, 1, "Test Input", "A" + rowCounter, "A" + rowCounter, 0, "LIGHTGRAY", true, 14, "Black", 11);
-                newExcel.addData(rowCounter, 2, item.Input, "B" + rowCounter, "B" + rowCounter, "", false,11);
+                newExcel.addData(rowCounter, 2, item.Input, "B" + rowCounter, "B" + rowCounter, "@", false,11);
                 rowCounter++;
                 newExcel.createHeaders(rowCounter, 1, "Expected Output", "A" + rowCounter, "A" + rowCounter, 0, "LIGHTGRAY", true, 14, "Black", 11);
                 foreach (clsCondition c in item.LstCondition)
@@ -92,7 +92,7 @@ namespace STAF.Automation.Excel
                 }
                 //reset counter
                 conditionCounter = 1;
-                newExcel.addData(rowCounter, 2, conditions, "B" + rowCounter, "B" + rowCounter, "", false,11);
+                newExcel.addData(rowCounter, 2, conditions, "B" + rowCounter, "B" + rowCounter, "@", false,11);
                 rowCounter++;
                 newExcel.createHeaders(rowCounter, 1, "Actual Output", "A" + rowCounter, "A" + rowCounter, 0, "LIGHTGRAY", true, 14, "Black", 11);
                 conditions = "";
@@ -107,10 +107,10 @@ namespace STAF.Automation.Excel
                 }
                 //reset counter
                 conditionCounter = 1;
-                newExcel.addData(rowCounter, 2, conditions, "B" + rowCounter, "B" + rowCounter, "", false,11);
+                newExcel.addData(rowCounter, 2, conditions, "B" + rowCounter, "B" + rowCounter, "@", false,11);
                 rowCounter++;
                 newExcel.createHeaders(rowCounter, 1, "Result", "A" + rowCounter, "A" + rowCounter, 0, "LIGHTGRAY", true, 14, "Black", 11);
-                newExcel.addData(rowCounter, 2, item.Result, "B" + rowCounter, "B" + rowCounter, "", false,11);
+                newExcel.addData(rowCounter, 2, item.Result, "B" + rowCounter, "B" + rowCounter, "@", false,11);
                 rowCounter+=2;
                 testCounter++;
                 conditions = "";

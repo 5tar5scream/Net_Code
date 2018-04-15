@@ -152,15 +152,12 @@ namespace STAF.Automation.Excel
 
         public void addData(int inRow, int inCol, string inData, string inCell1, string inCell2, string inFormat, bool inBold, int inFontSize)
         {
-            workSheet1.Cells[inRow, inCol] = inData;
             workSheetRange = workSheet1.get_Range(inCell1, inCell2);
+            workSheetRange.NumberFormat = inFormat;
+            workSheet1.Cells[inRow, inCol] = inData;
             workSheetRange.Font.Bold = inBold;
             workSheetRange.Font.Size = inFontSize;
             workSheetRange.Font.Name = "Arial";
-            if (inFormat == "0")
-            {
-                workSheetRange.NumberFormat = inFormat;
-            }
             workSheetRange.Borders.Color = System.Drawing.Color.Black.ToArgb();
             workSheetRange.ColumnWidth = 100;
         }
