@@ -21,14 +21,44 @@ namespace DsManager
 
         private void btnSub_Click(object sender, EventArgs e)
         {
-            List<string> toAdd = new List<string>();
-            toAdd.Add(textBox1.Text);
-            foreach (string item in Classifier.InputToList(textBox1.Text))
+            try
             {
-                toAdd.Add(item);
+                List<string> toAdd = new List<string>();
+                toAdd.Add(txtInput.Text);
+                foreach (string item in Classifier.InputToList(txtInput.Text))
+                {
+                    toAdd.Add(item);
+                }
+                if (txtClass.Text == "")
+                {
+                    toAdd.Add(cb_Class.Text);
+                }
+                else
+                {
+                    toAdd.Add(txtClass.Text);
+                }
+                CSVHelper.AppendToCSV(toAdd);
+                MessageBox.Show("Success! Input " + txtInput.Text + " added to dataset");
+
+                txtInput.Text = "";
+                txtClass.Text = "";
+                cb_Class.Text = "";
+
             }
-            toAdd.Add(cb.Text);
-            CSVHelper.AppendToCSV(toAdd);
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error:" + ex.ToString());
+            }
+        }
+
+        private void txtClass_TextChanged(object sender, EventArgs e)
+        {
+            cb_Class.Text = "";
+        }
+
+        private void cb_Class_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtClass.Text = "";
         }
     }
 }
