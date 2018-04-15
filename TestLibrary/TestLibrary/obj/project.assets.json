@@ -48,8 +48,6 @@
       "path": "netstandard.library/2.0.1",
       "files": [
         "LICENSE.TXT",
-        "NETStandard.Library.2.0.1.nupkg.sha512",
-        "NETStandard.Library.nuspec",
         "THIRD-PARTY-NOTICES.TXT",
         "build/NETStandard.Library.targets",
         "build/netstandard2.0/NETStandard.Library.targets",
@@ -167,7 +165,9 @@
         "build/netstandard2.0/ref/mscorlib.dll",
         "build/netstandard2.0/ref/netstandard.dll",
         "build/netstandard2.0/ref/netstandard.xml",
-        "lib/netstandard1.0/_._"
+        "lib/netstandard1.0/_._",
+        "netstandard.library.2.0.1.nupkg.sha512",
+        "netstandard.library.nuspec"
       ]
     }
   },
@@ -177,8 +177,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ryan FarrugiaRoberts\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
+    "C:\\Users\\Ryan\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -187,20 +186,18 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ryan FarrugiaRoberts\\Documents\\GitHub\\Net_Code\\TestLibrary\\TestLibrary\\TestLibrary.csproj",
+      "projectUniqueName": "C:\\Users\\Ryan\\Documents\\GitHub\\Net_Code\\TestLibrary\\TestLibrary\\TestLibrary.csproj",
       "projectName": "TestLibrary",
-      "projectPath": "C:\\Users\\Ryan FarrugiaRoberts\\Documents\\GitHub\\Net_Code\\TestLibrary\\TestLibrary\\TestLibrary.csproj",
-      "packagesPath": "C:\\Users\\Ryan FarrugiaRoberts\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ryan FarrugiaRoberts\\Documents\\GitHub\\Net_Code\\TestLibrary\\TestLibrary\\obj\\",
+      "projectPath": "C:\\Users\\Ryan\\Documents\\GitHub\\Net_Code\\TestLibrary\\TestLibrary\\TestLibrary.csproj",
+      "packagesPath": "C:\\Users\\Ryan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Ryan\\Documents\\GitHub\\Net_Code\\TestLibrary\\TestLibrary\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Ryan FarrugiaRoberts\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
+        "C:\\Users\\Ryan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
@@ -226,7 +223,7 @@
           "NETStandard.Library": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[2.0.1, )",
+            "version": "2.0.1",
             "autoReferenced": true
           }
         },
