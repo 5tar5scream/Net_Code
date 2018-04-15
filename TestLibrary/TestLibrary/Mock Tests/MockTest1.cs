@@ -74,5 +74,24 @@ namespace TestLibrary.Mock_Tests
             TestOracle.PrintResults();
         }
 
+        [TestCase("Should be a number but is a string", false)]
+        public void InsertNumber2()
+        {
+            string input = "HelloWorld";
+            const bool ExpectedOutput = true;
+            int maxInputs = 2;
+
+            string[] Inputs = InputHelper.RetrieveInputs(input, maxInputs);
+
+            for (int i = 0; i < Inputs.Length; i++)
+            {
+                clsCondition condition1 = new clsCondition(clsEnums.Condition.IS_NUMERIC, Inputs[i], ExpectedOutput.ToString(), ActualOutput.AnalyzeNumber(Inputs[i], clsEnums.Condition.IS_NUMERIC));
+                TestOracle.AppendConditions(condition1);
+                TestOracle.ValidateTestConditions("Should be a number but is a string");
+            }
+            TestOracle.PrintResults();
+        }
+
+
     }
 }

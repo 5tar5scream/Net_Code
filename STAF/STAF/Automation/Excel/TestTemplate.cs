@@ -54,6 +54,7 @@ namespace STAF.Automation.Excel
                 rowCounter++;
                 testCounter++;
             }
+            System.Threading.Thread.Sleep(5000);
             if (newExcel.SaveWorkBook("AutomationResults", filePath))
             {
                 Console.WriteLine("Saved Excel");
@@ -77,7 +78,7 @@ namespace STAF.Automation.Excel
                 newExcel.addData(rowCounter, 2, item.Description, "B" + rowCounter, "B" + rowCounter, "", false,11);
                 rowCounter++;
                 newExcel.createHeaders(rowCounter, 1, "Test Input", "A" + rowCounter, "A" + rowCounter, 0, "LIGHTGRAY", true, 14, "Black", 11);
-                newExcel.addData(rowCounter, 2, item.Input, "B" + rowCounter, "B" + rowCounter, "", false,true,11);
+                newExcel.addData(rowCounter, 2, item.Input, "B" + rowCounter, "B" + rowCounter, "", false,11);
                 rowCounter++;
                 newExcel.createHeaders(rowCounter, 1, "Expected Output", "A" + rowCounter, "A" + rowCounter, 0, "LIGHTGRAY", true, 14, "Black", 11);
                 foreach (clsCondition c in item.LstCondition)

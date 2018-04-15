@@ -20,7 +20,7 @@ namespace STAF.Automation.Excel
 
         public ExcelMaker()
         {
-            createDoc();
+            //createDoc();
         }
 
         public void createDoc()
@@ -92,7 +92,7 @@ namespace STAF.Automation.Excel
             {
                 workSheetRange.Font.Color = System.Drawing.Color.Black.ToArgb();
             }
-
+            workSheetRange.EntireColumn.AutoFit();
         }
 
         public void createHeadersMergeCenterBorder(int inRow, int inColumn, string inHeaderText, string inCell1, string inCell2, int inMergeColumns, string inBackGroundColor, bool inBold, int inSize, string inFontColor, int inFontSize)
@@ -131,6 +131,7 @@ namespace STAF.Automation.Excel
             {
                 workSheetRange.Font.Color = System.Drawing.Color.Black.ToArgb();
             }
+            workSheetRange.EntireColumn.AutoFit();
 
         }
 
@@ -161,6 +162,7 @@ namespace STAF.Automation.Excel
                 workSheetRange.NumberFormat = inFormat;
             }
             workSheetRange.Borders.Color = System.Drawing.Color.Black.ToArgb();
+            workSheetRange.ColumnWidth = 100;
         }
 
         public void addData(int inRow, int inCol, string inData, string inCell1, string inCell2, string inFormat, bool inBold, string inFontName, int inFontSize)
@@ -223,6 +225,7 @@ namespace STAF.Automation.Excel
 
         public void CloseWorkBook()
         {
+            System.Threading.Thread.Sleep(5000);
             workBook1.Close();
             Marshal.ReleaseComObject(workBook1);
             ExcelApp.Quit();
