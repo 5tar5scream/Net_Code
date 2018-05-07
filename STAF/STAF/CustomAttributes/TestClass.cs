@@ -4,6 +4,7 @@ using System.Text;
 
 namespace STAF.CustomAttributes
 {
+    //** READ ME - This object is never used in the current version of the framework, however it is reserved for future development**//
     public class TestClass : Attribute
     {
         #region fields

@@ -8,3 +8,4 @@ C:\Users\Ryan\Documents\GitHub\Net_Code\STAF\STAF\bin\Debug\STAF.pdb
 C:\Users\Ryan\Documents\GitHub\Net_Code\STAF\STAF\obj\Debug\STAF.csproj.CoreCompileInputs.cache
 C:\Users\Ryan\Documents\GitHub\Net_Code\STAF\STAF\obj\Debug\STAF.dll
 C:\Users\Ryan\Documents\GitHub\Net_Code\STAF\STAF\obj\Debug\STAF.pdb
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\STAF\STAF\obj\Debug\STAF.csprojResolveAssemblyReference.cache

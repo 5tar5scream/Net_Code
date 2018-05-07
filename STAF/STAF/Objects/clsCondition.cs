@@ -40,7 +40,7 @@ namespace STAF.Objects
         #endregion
 
 
-        //you need visual studio 2017
+        //you need visual studio 2017 for these
         #region properties
         public clsEnums.Condition Condition { get => condition; set => condition = value; }
         public string Input { get => input; set => input = value; }

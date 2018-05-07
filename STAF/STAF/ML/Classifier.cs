@@ -13,7 +13,7 @@ namespace STAF.ML
 {
     public static class Classifier
     {
-
+        
         #region fields
         private static string[] ConvertedList;
         private static List<clsClassifiedInput> DataSet;
@@ -65,21 +65,10 @@ namespace STAF.ML
             StringToConsole.PrintToConsole(Classification);
             return Classification;
         }
-        private static void StartDataTraining()
-        {
-            Setup();
-            TrainData();
-            PopulateLookupDictionary();
-            GenerateRules(0);
-            //TestData();
-            //PrintRulesForClass(1);
-        }
-        public static void StartClassification()
-        {
-            StartDataTraining();
-        }
+
 
         #region Validation Functions
+        //moved into a seperate class
         private static string isNumberic(string input)
         {
             int outNumber;
@@ -660,6 +649,7 @@ namespace STAF.ML
         #endregion
 
         #region misc functions
+        //to move Utility.Generic
         private static void RetrieveDataSet()
         {
             DataSet = CSVHelper.ReadDataSet();
@@ -963,6 +953,19 @@ namespace STAF.ML
         #endregion
 
         #region Machine Learning
+        private static void StartDataTraining()
+        {
+            Setup();
+            TrainData();
+            PopulateLookupDictionary();
+            GenerateRules(0);
+            //TestData();
+            //PrintRulesForClass(1);
+        }
+        public static void StartClassification()
+        {
+            StartDataTraining();
+        }
         private static void Setup()
         {
             try
@@ -1002,13 +1005,6 @@ namespace STAF.ML
             CopyArrayData(TrainingSet, ShuffeledDS, 0, tsLength);
             CopyArrayData(TestingSet, ShuffeledDS, tsLength, tstLength);
 
-            //StringToConsole.PrintToConsole("TrainingSet");
-            //StringToConsole.Print(TrainingSet);
-            //StringToConsole.PrintToConsole("");
-            //StringToConsole.PrintToConsole("TestingSet");
-            //StringToConsole.Print(TestingSet);
-
-            //Debugger.Break();
 
         }
         private static void GenerateRules(int Seed)
@@ -1042,18 +1038,18 @@ namespace STAF.ML
                 int xDigit = lookupDictionary[columnCount - 1][xClass];
                 tempRule[MaxConditions * 2] = xDigit;
 
-                //check for dupes
+                //checking for any dupplicate rules in the list
                 if (ValidateUniqueRule(tempRule))
                 {
                     continue;
                 }
-                //check if they meet the threshold
+                //check if they meet the minum accuracy threshold
                 if (!ValidateRuleAccuracy(tempRule))
                 {
                     continue;
                 }
 
-                //rule good so save it
+                //the rule has been considered valid so it is added to the list
                 int[] rule = tempRule;
                 GeneratedRules.Add(rule);
             }
@@ -1168,8 +1164,9 @@ namespace STAF.ML
                     int col = random.Next(1, inColumnRange);
                     outResult[i] = col;
                 }
-                //dont accept duplicates
+
                 Array.Sort(outResult);
+                //checking for dupplicate columns within the rules
                 if (!ValidateArrayForDuplicates(outResult))
                 {
                     return outResult;

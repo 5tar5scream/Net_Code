@@ -26,6 +26,7 @@ namespace STAF.ML
         {
             Classifier.StartClassification();
         }
+
         private static string ClassifyInput(string inInput)
         {
             return Classifier.ClassifyInput(inInput);

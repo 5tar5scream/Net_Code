@@ -9,7 +9,6 @@ C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\
 C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\obj\Debug\netstandard2.0\TestLibrary.csproj.CopyComplete
 C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\obj\Debug\netstandard2.0\TestLibrary.dll
 C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\obj\Debug\netstandard2.0\TestLibrary.pdb
-C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\obj\Debug\netstandard2.0\TestLibrary.csprojResolveAssemblyReference.cache
 C:\Users\Ryan\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\bin\Debug\netstandard2.0\TestLibrary.deps.json
 C:\Users\Ryan\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\bin\Debug\netstandard2.0\TestLibrary.dll
 C:\Users\Ryan\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\bin\Debug\netstandard2.0\TestLibrary.pdb
@@ -21,3 +20,4 @@ C:\Users\Ryan\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\obj\Debug\netsta
 C:\Users\Ryan\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\obj\Debug\netstandard2.0\TestLibrary.AssemblyInfo.cs
 C:\Users\Ryan\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\obj\Debug\netstandard2.0\TestLibrary.dll
 C:\Users\Ryan\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\obj\Debug\netstandard2.0\TestLibrary.pdb
+C:\Users\Ryan FarrugiaRoberts\Documents\GitHub\Net_Code\TestLibrary\TestLibrary\obj\Debug\netstandard2.0\TestLibrary.csprojResolveAssemblyReference.cache

@@ -9,7 +9,7 @@ namespace STAF.CustomAttributes
 
         #region fields
         private string testDescription;
-        private bool testIgnore;
+        private bool testIgnore = false;
         #endregion
 
 

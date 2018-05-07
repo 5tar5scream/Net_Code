@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace STAF.Objects
 {
+    //** READ ME - This object is never used in the current version of the framework, however it is reserved for future development**//
     public class ClassificationRules
     {
         #region properties
@@ -14,10 +15,16 @@ namespace STAF.Objects
         #endregion
 
         #region constructor
+        //Main Constructor 
         public ClassificationRules(string inColumn, int inValue)
         {
             Column = inColumn;
             ColValue = inValue;
+        }
+        //Empty Constructor 
+        public ClassificationRules()
+        {
+          //do nothing
         }
         #endregion;
 

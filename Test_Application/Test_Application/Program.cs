@@ -16,6 +16,8 @@ namespace Test_Application
         static void Main(string[] args)
         {
             TestLibrary.Mock_Tests.MockTest1 a = new TestLibrary.Mock_Tests.MockTest1();
+
+            //TestLibrary.Mock_Tests.MockTest2 b = new TestLibrary.Mock_Tests.MockTest2();
             Automation.AddLibrary(a);
             Automation.StartAutomation();
         }

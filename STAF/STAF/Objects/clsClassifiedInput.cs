@@ -14,16 +14,17 @@ namespace STAF.Objects
         #endregion
 
         #region constructors
+        //Main Constructor 
         public clsClassifiedInput(string inInput, string[] inAttributes, string inType)
         {
             input = inInput;
             attributes = inAttributes;
             type = inType;
         }
-
+        //Empty Constructor
         public clsClassifiedInput()
         {
-            //empty constructor
+            //do nothing
         }
         #endregion
 

@@ -36,7 +36,7 @@ namespace STAF.Automation.Utility
             }
             catch (Exception)
             {
-                //to do
+                throw;
             }
         }
 
@@ -48,7 +48,7 @@ namespace STAF.Automation.Utility
             }
             catch (Exception)
             {
-                //to do
+                throw;
             }
         }
     }

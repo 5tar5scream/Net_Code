@@ -18,7 +18,7 @@ namespace STAF.Objects
 
         public clsTestResults()
         {
-
+            //empty constructor
         }
 
         public clsTestResults(string inDescription, string inInput, string inExptecOutput, string inActualOutput, string inResult, List<clsCondition> inConditons)
